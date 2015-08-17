@@ -41,6 +41,9 @@ best <- function(state, outcome) {
     if (!tolower(outcome) %in% conditions) {
       stop("Invalid outcome")
     }
+    # The above two ifs will take care of the invalid conditions and invalid
+    # states. If we get to this point, it means we have the correct state and 
+    # correct outcome.
     
     
  #   outcome <- read_csv(, col_names = TRUE,
