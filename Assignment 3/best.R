@@ -38,7 +38,9 @@ best <- function(state, outcome) {
     # convert the argument to lower case just in case the user has written the
     # name of the condition using upper case letters or a mixture of upper case
     # and lower case.
-    if (!tolower(outcome) %in% conditions)
+    if (!tolower(outcome) %in% conditions) {
+      stop("Invalid outcome")
+    }
     
     
  #   outcome <- read_csv(, col_names = TRUE,
