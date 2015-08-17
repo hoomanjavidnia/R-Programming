@@ -1,4 +1,4 @@
-# These are the two main functions that are defined as part of Assignment 2 of R
+# These are the two functions that are defined as part of Assignment 2 of R
 # Programming Course on Coursera. This assignment is about lexical scoping.
 # From all that I have read on the forum, it seems that this is more like an 
 # exercise and does not have practial usage at least in the form as is.
@@ -13,6 +13,9 @@
 # 2. get
 # 3. set.inverse
 # 4. get.inverse
+
+# makeCacheMatrix defines a list of 4 functions that create a matrix-like
+# object. 
 
 makeCacheMatrix <- function(x = matrix()) {
     inv <- NULL
