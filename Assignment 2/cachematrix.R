@@ -14,7 +14,6 @@
 # 3. set.inverse
 # 4. get.inverse
 
-# 
 
 # makeCacheMatrix defines a list of 4 functions that create a matrix-like
 # object. 
