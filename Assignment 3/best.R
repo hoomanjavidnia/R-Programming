@@ -8,9 +8,9 @@ best <- function(state, outcome) {
     # = Hooman Javidnia                          =
     # ============================================ 
 
-  	# Read outcome data
-  	# I am using readr package for reading the csv files
-  	library(readr)
+    # Read outcome data
+    # I am using readr package for reading the csv files
+    library(readr)
     # I don't need to read the whole file as the decision on best hospital is
     # only based on the mortality rates for "heart attack", "heart failure", and
     # "pneumonia". We also need the name of the hospital and the state. These
@@ -26,31 +26,32 @@ best <- function(state, outcome) {
     # or not. Also, it will be passed to read_csv file to read the states as a 
     # factor.
   
-    # Check  if the state argument is a valid one. There are probably better
-    # ways to do this, but I am just using a simple if.
-    
+    # Check if the state argument is a valid one. There are probably better
+    # ways to do this, but I am just using a simple if to throw an error
+    # message.
     if (!state %in% state.abb) {
-      stop("Invalid state")
+        stop("Invalid state")
     }
-    
+
     # Check if the outcome is one of the valid conditions in the list
     conditions <- c("heart attack", "heart failure", "pneumonia")
+
     # convert the argument to lower case just in case the user has written the
     # name of the condition using upper case letters or a mixture of upper case
     # and lower case.
     if (!tolower(outcome) %in% conditions) {
-      stop("Invalid outcome")
+        stop("Invalid outcome")
     }
+
     # The above two ifs will take care of the invalid conditions and invalid
     # states. If we get to this point, it means we have the correct state and 
     # correct outcome.
-    
-    
- #   outcome <- read_csv(, col_names = TRUE,
- #                            col_types = list(col_date(), col_double(),
-#                                              col_double(), col_integer()))
-    
+
+    outcome <- read_csv("Assignment 3/outcome-of-care-measures.csv", 
+                        col_names = TRUE, 
+                        col_types = "_c____c___d_____d_____d_______________________", 
+                        na = "NA")
     # check that state and outcome are valid
-	
+    
     # return hospital name in that state with lowest 30-day death rate
 }
