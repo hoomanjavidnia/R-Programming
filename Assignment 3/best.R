@@ -21,15 +21,22 @@ best <- function(state, outcome) {
     # Mortality rate from heart failure: column 17 (double)
     # Mortality rate from pneumonia: column 23 (double)
     
-    # There is a variable in R which has all the abbreviations of states. I will
-    # use this variable for checking if the name of the variable passed is valid
-    # or not. Also, it will be passed to read_csv file to read the states as a 
-    # factor.
-  
+
+    outcome <- read_csv("outcome-of-care-measures.csv", 
+                        col_names = TRUE, 
+                        col_types = "_c____c___d_____d_____d_______________________", 
+                        na = "NA")
+    # Now that the CSV file is read, I am going to convert the state column to
+    # factor:
+    outcome$State <- as.factor(outcome$State)
+
+    # check that state and outcome are valid
+    # Extract all the states in the State column of the data frame:
+    all.states <- unique(outcome$State)
     # Check if the state argument is a valid one. There are probably better
     # ways to do this, but I am just using a simple if to throw an error
     # message.
-    if (!state %in% state.abb) {
+    if (!state %in% all.states) {
         stop("Invalid state")
     }
 
@@ -47,11 +54,5 @@ best <- function(state, outcome) {
     # states. If we get to this point, it means we have the correct state and 
     # correct outcome.
 
-    outcome <- read_csv("Assignment 3/outcome-of-care-measures.csv", 
-                        col_names = TRUE, 
-                        col_types = "_c____c___d_____d_____d_______________________", 
-                        na = "NA")
-    # check that state and outcome are valid
-    
     # return hospital name in that state with lowest 30-day death rate
 }

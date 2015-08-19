@@ -16,8 +16,8 @@
 
 
 # makeCacheMatrix defines a list of 4 functions that create a matrix-like
-# object. 
-
+# object with 4 method for defining the matrix, getting the value of the matrix,
+# setting the inverse of the matrix, and getting the matrix's inverse.
 makeCacheMatrix <- function(x = matrix()) {
     inv <- NULL
     
@@ -37,8 +37,9 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
-
+# casheSolve takes an object of the type cacheMatrix and calculates its inverse
+# if it is not cached before. If it is cached, it will return the cached
+# version.
 cacheSolve <- function(x, ...) {
     # Return a matrix that is the inverse of 'x'
     inv <- x$get.inverse()
