@@ -42,6 +42,9 @@ makeCacheMatrix <- function(x = matrix()) {
         # <<- assignment is used that not only assings the value of y to x in 
         # set matrix, but also,  changes it in other places too.
         x <<- y
+        # If the matrix has changed, it means that its inverse has also changed.
+        # So, the inv variable is also set to NULL inside the function and in
+        # other functions that have the same variable.
         inv <<- NULL
     }
     
@@ -61,11 +64,16 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
     # Return a matrix that is the inverse of 'x'
     inv <- x$get.inverse()
+    # The following if checks whether inv variable exists or it is null. If it
+    # is not NULL, it means that the inverse is already calculated and that 
+    # value is returned.
     if (!is.null(inv)) {
         message("getting cached data")
         return(inv)
     }
-    
+    # If the inverse is NULL, then using the get function the data variable is 
+    # populated with the matrix elements and solve function calculated the 
+    # inverse.
     data <- x$get()
     inv <- solve(data, ...)
     x$set.inverse(inv)
