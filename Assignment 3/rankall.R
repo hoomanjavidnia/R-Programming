@@ -21,13 +21,13 @@ rankall <- function(outcome, num = "best") {
     # Mortality rate from pneumonia: column 23 (double)
     
 
-    all.outcome.data <- read_csv("outcome-of-care-measures.csv", 
+    data <- read_csv("outcome-of-care-measures.csv", 
                         col_names = TRUE, 
                         col_types = "_c____c___d_____d_____d_______________________", 
                         na = "NA")
     # Now that the CSV file is read, I am going to convert the state column to
     # factor:
-    all.outcome.data$State <- as.factor(all.outcome.data$State)
+    data$State <- as.factor(data$State)
 
     # check that state and outcome are valid
     # =====================
@@ -38,7 +38,7 @@ rankall <- function(outcome, num = "best") {
     # every state in the data file.
     
     # Extract all the states in the State column of the data frame:
-    all.states <- unique(all.outcome.data$State)
+    all.states <- unique(data$State)
     # Check if the state argument is a valid one. There are probably better
     # ways to do this, but I am just using a simple if to throw an error
     # message.
@@ -59,8 +59,6 @@ rankall <- function(outcome, num = "best") {
     # The above two ifs will take care of the invalid conditions and invalid
     # states. If we get to this point, it means we have the correct state and 
     # correct outcome.
-    
-    # For each state, find the hospital of the given rank
     
     # Return a data frame with the hospital names and the
     # (abbreviated) state name
