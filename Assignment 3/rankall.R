@@ -37,14 +37,14 @@ rankall <- function(outcome, num = "best") {
     # the states in the data file and that there is at least one hospital from
     # every state in the data file.
     
-    # Extract all the states in the State column of the data frame:
-    all.states <- unique(data$State)
-    # Check if the state argument is a valid one. There are probably better
-    # ways to do this, but I am just using a simple if to throw an error
-    # message.
-    if (!state %in% all.states) {
-        stop("Invalid state")
-    }
+    # # Extract all the states in the State column of the data frame:
+#     all.states <- unique(data$State)
+#     # Check if the state argument is a valid one. There are probably better
+#     # ways to do this, but I am just using a simple if to throw an error
+#     # message.
+#     if (!state %in% all.states) {
+#         stop("Invalid state")
+#     }
 
     # Check if the outcome is one of the valid conditions in the list
     conditions <- c("heart attack", "heart failure", "pneumonia")
@@ -79,14 +79,36 @@ rankall <- function(outcome, num = "best") {
     # which can take the values of "best", "worst", or a numeric value.
     find.outcome <- function(df, num) {
         # Function find.outcome finds the desired outcome in a given data frame.
-        
+        # First the data frame df has to be sorted based on its 3rd column
+        # which is the mortality rate for a given condition, and then 1st column
+        # which is the name of the hospital. Note that at this point the NAs
+        # are still part of each data frame.
+        df <- df[order(df[[3]], df[[1]]), ]
+        # Remove all NA's.
+        df <- df[complete.cases(df), ]
+        # Now that df is sorted and there are no NAs, I can extract the desired
+        # outcome based on the value of the num.
+        if (num == "best") {
+            output <- head(df[[1]], 1)
+        } else if (num == "worst") {
+            output <- tail(df[[1]], 1)
+        } else if (is.numeric(num)) {
+            if (num > nrow(df)) {
+                output <- "NA"
+            } else {
+                output <- df[[num, 1]]
+            }
+        } else {
+            stop("invalid argument")
+        }
+        return(output)
     }
     # Now, split.data is a list, where each element is data frame.
-    results <- lapply(split.data, function(df, num) {
-        
-    })
-    
-    
+    # I am applying find.outcome function on every element of the list.
+    # It should return a list with the name of the Hospital for the given which 
+    # has best outcome for the condition specfified.
+    results <- lapply(split.data, find.outcome, num)
     # Return a data frame with the hospital names and the
     # (abbreviated) state name
+    return(data.frame(hospital = unlist(results), state = names(results)))
 }
