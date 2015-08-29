@@ -60,6 +60,33 @@ rankall <- function(outcome, num = "best") {
     # states. If we get to this point, it means we have the correct state and 
     # correct outcome.
     
+    # I am trying to avoid using for loops and I think that is the intension of
+    # the course instructors. One solution I found is using split() function to
+    # split the data frame based on the state. This will return a list of data
+    # frames for each state. Then I will apply a function similar to 
+    # rankhospital.R to the elements of the list.
+    
+    # Subset the columns of the data frame relavent to the given condition:
+    # First, let's find out which one of the conditions we are looking at:
+    condition.index <- grep(outcome, conditions)
+    # We will need 3 columns of the data frame: Name of the Hospital, State,
+    # and the column corresponding to the outcome we are investigating.
+    data <- data[, c(1,2, condition.index + 2)]
+    # Splittng the "data" data frame based on the State column which is a factor
+    split.data <- split(data, data[[2]], drop = FALSE)
+    # Now, I am going to define a function which will do the main part of the
+    # calculation. The input to this function is a data frame (df) and num,
+    # which can take the values of "best", "worst", or a numeric value.
+    find.outcome <- function(df, num) {
+        # Function find.outcome finds the desired outcome in a given data frame.
+        
+    }
+    # Now, split.data is a list, where each element is data frame.
+    results <- lapply(split.data, function(df, num) {
+        
+    })
+    
+    
     # Return a data frame with the hospital names and the
     # (abbreviated) state name
 }
